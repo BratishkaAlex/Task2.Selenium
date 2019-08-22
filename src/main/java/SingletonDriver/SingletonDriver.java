@@ -17,7 +17,7 @@ public class SingletonDriver {
             if (Props.getProps().getProperty("browser").equals("chrome")) {
                 WebDriverManager.chromedriver().setup();
                 driver = new ChromeDriver();
-            } else if (Props.getProps().getProperty("browser").equals("firefox")){
+            } else if (Props.getProps().getProperty("browser").equals("firefox")) {
                 WebDriverManager.firefoxdriver().setup();
                 driver = new FirefoxDriver();
             }

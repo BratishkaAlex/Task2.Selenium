@@ -18,9 +18,4 @@ public class Props {
         }
         return properties;
     }
-
-    public String getUrl(Properties props){
-        String url = props.getProperty("url");
-        return url;
-    }
 }

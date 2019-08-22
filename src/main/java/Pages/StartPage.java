@@ -17,7 +17,7 @@ public class StartPage {
         driver.get(Props.getProps().getProperty("url"));
     }
 
-    public WebElement getLoginButton() {
+    private WebElement getLoginButton() {
         return driver.findElement(By.xpath(loginXpath));
     }
 
@@ -26,7 +26,7 @@ public class StartPage {
         changeTab(1);
     }
 
-    public void changeTab(int expectedNumber) {
+    private void changeTab(int expectedNumber) {
         driver.switchTo().window(new ArrayList<>(driver.getWindowHandles()).get(expectedNumber));
     }
 }

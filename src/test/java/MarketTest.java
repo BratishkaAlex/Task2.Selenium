@@ -1,5 +1,5 @@
-import AppUtils.Props;
 import Pages.LoginPage;
+import Pages.PasswordPage;
 import Pages.ResultPage;
 import Pages.StartPage;
 import SingletonDriver.SingletonDriver;
@@ -9,16 +9,17 @@ import org.testng.annotations.Test;
 public class MarketTest {
 
     @Test
-    public void test() {
+    public void test() throws InterruptedException {
         WebDriver driver = SingletonDriver.getDriver();
         StartPage startPage = new StartPage();
         startPage.logIn();
         LoginPage loginPage = new LoginPage();
-        loginPage.login(Props.getProps().getProperty("login"), Props.getProps().getProperty("password"));
-        ResultPage resultPage = loginPage.getResultPage(0);
-        //resultPage.logOut();
-        // Закрываем браузер
-        //driver.quit();
+        loginPage.enterLogin();
+        PasswordPage passwordPage = new PasswordPage();
+        passwordPage.enterPassword();
+        ResultPage resultPage = new ResultPage();
+       // resultPage.logOut();
+        driver.quit();
     }
 
 }
