@@ -10,7 +10,6 @@ public class MarketTest {
 
     @Test
     public void test() throws InterruptedException {
-        WebDriver driver = SingletonDriver.getDriver();
         StartPage startPage = new StartPage();
         startPage.logIn();
         LoginPage loginPage = new LoginPage();
@@ -18,8 +17,9 @@ public class MarketTest {
         PasswordPage passwordPage = new PasswordPage();
         passwordPage.enterPassword();
         ResultPage resultPage = new ResultPage();
+        resultPage.getListCategories();
        // resultPage.logOut();
-        driver.quit();
+        //driver.quit();
     }
 
 }

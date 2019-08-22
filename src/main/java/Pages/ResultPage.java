@@ -20,11 +20,18 @@ public class ResultPage {
     }
 
     public ArrayList<String> getListCategories(){
-
-        return new ArrayList<String> ();
+        List <WebElement> categories =  getWebElementCategories();
+        ArrayList <String> popular = new ArrayList<>();
+        for(WebElement elem: categories){
+            if(!elem.getText().equals("")){
+                popular.add(elem.getText());
+            }
+        }
+        System.out.println(popular.size());
+        return popular;
     }
 
-    private List<WebElement> getWebElementCategory(){
+    private List<WebElement> getWebElementCategories(){
         return driver.findElements(By.xpath("//span[@class = 'n-w-tab__control-caption']"));
     }
 /*

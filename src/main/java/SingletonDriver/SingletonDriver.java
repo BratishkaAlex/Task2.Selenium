@@ -4,6 +4,7 @@ import AppUtils.Props;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 import java.util.concurrent.TimeUnit;
@@ -16,7 +17,9 @@ public class SingletonDriver {
         if (driver == null) {
             if (Props.getProps().getProperty("browser").equals("chrome")) {
                 WebDriverManager.chromedriver().setup();
-                driver = new ChromeDriver();
+                ChromeOptions options = new ChromeOptions();
+                options.addArguments("start-maximized");
+                driver = new ChromeDriver(options);
             } else if (Props.getProps().getProperty("browser").equals("firefox")) {
                 WebDriverManager.firefoxdriver().setup();
                 driver = new FirefoxDriver();
