@@ -1,19 +1,22 @@
-package Pages;
+package pages;
 
-import AppUtils.Props;
-import SingletonDriver.SingletonDriver;
+import appUtils.Props;
+import browser.Browser;
+import browser.BrowserFactory;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-
-import java.util.ArrayList;
 
 public class PasswordPage {
     private WebDriver driver;
     private String passwordFieldLoc = "passwd";
 
     public PasswordPage() {
-        driver = SingletonDriver.getDriver();
+        try {
+            driver = BrowserFactory.getDriver();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
     }
 
     private WebElement getPasswordField() {
@@ -23,10 +26,8 @@ public class PasswordPage {
     public void enterPassword() throws InterruptedException {
         getPasswordField().sendKeys(Props.getProps().getProperty("password"));
         getPasswordField().submit();
-        changeTab(0);
+        Browser.changeTab(0);
     }
 
-    private void changeTab(int expectedNumber) {
-        driver.switchTo().window(new ArrayList<>(driver.getWindowHandles()).get(expectedNumber));
-    }
+
 }

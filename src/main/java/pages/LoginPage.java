@@ -1,7 +1,7 @@
-package Pages;
+package pages;
 
-import AppUtils.Props;
-import SingletonDriver.SingletonDriver;
+import appUtils.Props;
+import browser.BrowserFactory;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -12,7 +12,11 @@ public class LoginPage {
     private String loginFieldLoc = "login";
 
     public LoginPage() {
-        driver = SingletonDriver.getDriver();
+        try {
+            driver = BrowserFactory.getDriver();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
     }
 
     private WebElement getLoginField() {

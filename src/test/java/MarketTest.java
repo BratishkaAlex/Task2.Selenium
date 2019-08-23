@@ -1,9 +1,7 @@
-import Pages.LoginPage;
-import Pages.PasswordPage;
-import Pages.ResultPage;
-import Pages.StartPage;
-import SingletonDriver.SingletonDriver;
-import org.openqa.selenium.WebDriver;
+import pages.LoginPage;
+import pages.PasswordPage;
+import pages.ResultPage;
+import pages.StartPage;
 import org.testng.annotations.Test;
 
 public class MarketTest {

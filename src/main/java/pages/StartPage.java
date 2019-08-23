@@ -1,20 +1,25 @@
-package Pages;
+package pages;
 
-import AppUtils.Props;
-import SingletonDriver.SingletonDriver;
+import appUtils.Props;
+import appUtils.Waiter;
+import browser.Browser;
+import browser.BrowserFactory;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-
-import java.util.ArrayList;
 
 public class StartPage {
     private WebDriver driver;
     private String loginXpath = "(//a[contains(.,'Войти')])[2]";
 
     public StartPage() {
-        driver = SingletonDriver.getDriver();
+        try {
+            driver = BrowserFactory.getDriver();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
         driver.get(Props.getProps().getProperty("url"));
+        Waiter.implicitWait(30);
     }
 
     private WebElement getLoginButton() {
@@ -23,10 +28,7 @@ public class StartPage {
 
     public void logIn() {
         getLoginButton().click();
-        changeTab(1);
+        Browser.changeTab(1);
     }
 
-    private void changeTab(int expectedNumber) {
-        driver.switchTo().window(new ArrayList<>(driver.getWindowHandles()).get(expectedNumber));
-    }
 }
