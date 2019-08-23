@@ -19,12 +19,16 @@ public class BrowserFactory {
                     break;
                 case "firefox":
                     WebDriverManager.firefoxdriver().setup();
-                    driver =  new FirefoxDriver();
+                    driver = new FirefoxDriver();
                     break;
                 default:
                     throw new Exception("Wrong browser name!");
             }
         }
         return driver;
+    }
+
+    public void quitDriver() {
+        driver.quit();
     }
 }

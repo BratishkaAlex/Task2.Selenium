@@ -1,5 +1,6 @@
 package pages;
 
+import appUtils.Waiter;
 import browser.BrowserFactory;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -11,8 +12,8 @@ import java.util.List;
 public class ResultPage {
 
     private WebDriver driver;
-    private String popularCategory = "//a[@class = 'link n-w-tab__control b-zone b-spy-events']";
-    private String userIconLoc = "(//span[contains(@class,'yes')])[5]";
+    private String popularCategory = "//div[@class='n-w-tabs__horizontal-tabs']//a[@class = 'link n-w-tab__control b-zone b-spy-events']";
+    private String userIconLoc = ".n-passport-suggest-popup-opener .user__icon";
     private String logOutLoc = "//a[@class='link user user__logout i-bem user_js_inited']";
 
     public ResultPage() {
@@ -25,22 +26,27 @@ public class ResultPage {
 
     public ArrayList<String> getListCategories() {
         List<WebElement> categories = getWebElementCategories();
-        ArrayList<String> popular = new ArrayList<>();
+        ArrayList<String> popular = new ArrayList();
         for (WebElement elem : categories) {
-            if (!elem.getText().equals("")) {
-                popular.add(elem.getText());
-            }
+            popular.add(elem.getText());
         }
-        System.out.println(popular.size());
         return popular;
     }
 
     private List<WebElement> getWebElementCategories() {
-        return driver.findElements(By.xpath("//span[@class = 'n-w-tab__control-caption']"));
+        List<WebElement> listCategories = driver.findElements(By.xpath(popularCategory));
+        for (int i = 0; i < listCategories.size(); i++) {
+            if (listCategories.get(i).getText().equals("Скидки и акции") || listCategories.get(i).getText().equals("")) {
+                listCategories.remove(i);
+                i--;
+            }
+        }
+        return listCategories;
     }
-/*
+
     private WebElement getUserIcon() {
-        return driver.findElement(By.xpath(userIconLoc));
+        Waiter.waitForClickable(By.cssSelector(userIconLoc));
+        return driver.findElement(By.cssSelector(userIconLoc));
     }
 
     private WebElement getLogOutButton() {
@@ -52,5 +58,17 @@ public class ResultPage {
         getLogOutButton().click();
     }
 
- */
+    public boolean isUserAuthorized() {
+        return getUserIcon().isDisplayed();
+    }
+
+
+    public void chooseRandomCat(String text) {
+
+    }
+
+    private WebElement getRandomCategory(String text) {
+        List<WebElement> listCategories = getWebElementCategories();
+        return null;
+    }
 }

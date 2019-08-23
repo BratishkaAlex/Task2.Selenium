@@ -31,4 +31,7 @@ public class StartPage {
         Browser.changeTab(1);
     }
 
+    public String getMainPageTitle() {
+        return driver.getTitle();
+    }
 }

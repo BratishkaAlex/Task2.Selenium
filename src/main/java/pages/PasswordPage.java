@@ -23,7 +23,7 @@ public class PasswordPage {
         return driver.findElement(By.name(passwordFieldLoc));
     }
 
-    public void enterPassword() throws InterruptedException {
+    public void enterPassword() {
         getPasswordField().sendKeys(Props.getProps().getProperty("password"));
         getPasswordField().submit();
         Browser.changeTab(0);
