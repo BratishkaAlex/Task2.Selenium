@@ -8,22 +8,20 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-public class StartPage {
+public class UnauthorizedPage {
     private WebDriver driver;
-    private String loginXpath = "(//a[contains(.,'Войти')])[2]";
+    private String loginLoc = ".n-passport-suggest-popup-opener .button2";
 
-    public StartPage() {
+    public UnauthorizedPage() {
         try {
             driver = BrowserFactory.getDriver();
         } catch (Exception e) {
             System.out.println(e);
         }
-        driver.get(Props.getProps().getProperty("url"));
-        Waiter.implicitWait(30);
     }
 
     private WebElement getLoginButton() {
-        return driver.findElement(By.xpath(loginXpath));
+        return driver.findElement(By.cssSelector(loginLoc));
     }
 
     public void logIn() {
@@ -33,5 +31,9 @@ public class StartPage {
 
     public String getMainPageTitle() {
         return driver.getTitle();
+    }
+
+    public boolean isLogout() {
+        return getLoginButton().isDisplayed();
     }
 }

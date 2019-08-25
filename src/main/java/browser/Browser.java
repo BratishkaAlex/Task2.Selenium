@@ -1,5 +1,7 @@
 package browser;
 
+import appUtils.Props;
+import appUtils.Waiter;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
@@ -7,7 +9,7 @@ import java.util.ArrayList;
 
 public class Browser {
 
-    public static ChromeOptions chromeMaximixe() {
+    public static ChromeOptions chromeMaximize() {
         ChromeOptions chromeOptions = new ChromeOptions();
         chromeOptions.addArguments("start-maximized");
         return chromeOptions;
@@ -22,5 +24,12 @@ public class Browser {
         }
     }
 
-
+    public static void enterUrl() {
+        try {
+            BrowserFactory.getDriver().get(Props.getProps().getProperty("url"));
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        Waiter.implicitWait(30);
+    }
 }

@@ -20,7 +20,7 @@ public class Waiter {
 
     public static void waitForClickable(By element) {
         try {
-            WebDriverWait wait = new WebDriverWait(BrowserFactory.getDriver(), 5);
+            WebDriverWait wait = new WebDriverWait(BrowserFactory.getDriver(), 30);
             wait.until(ExpectedConditions.elementToBeClickable(element));
         } catch (Exception e) {
             System.out.println(e);
