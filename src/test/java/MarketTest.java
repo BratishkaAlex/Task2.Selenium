@@ -5,6 +5,7 @@ import pages.*;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -38,6 +39,7 @@ public class MarketTest {
         MainPage secondMainPage = new MainPage();
         secondMainPage.clickOnAllCategories();
         ArrayList<String> allCategories = secondMainPage.getListAllCategories();
+        System.out.println(allCategories.size());
         writeListInFile(allCategories);
         File checkFile = new File(pathToCSVFile);
         assertTrue(checkFile.exists(), "File wasn't created");
@@ -65,9 +67,8 @@ public class MarketTest {
     }
 
     private void writeListInFile(ArrayList<String> list) {
-        FileWriter writer = null;
         try {
-            writer = new FileWriter(pathToCSVFile);
+            PrintWriter writer = new PrintWriter(pathToCSVFile, "windows-1251");
             for (String elem : list) {
                 writer.write(elem + System.getProperty("line.separator"));
             }
