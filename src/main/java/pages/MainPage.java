@@ -5,7 +5,6 @@ import browser.BrowserFactory;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,6 +36,7 @@ public class MainPage {
     }
 
     private List<WebElement> getWebElementPopCategories() {
+        Waiter.waitForClickable(By.xpath(popularCategoryLoc));
         List<WebElement> listCategories = driver.findElements(By.xpath(popularCategoryLoc));
         for (int i = 0; i < listCategories.size(); i++) {
             if (listCategories.get(i).getText().equals("")) {

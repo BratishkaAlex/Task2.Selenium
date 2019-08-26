@@ -1,5 +1,6 @@
 package pages;
 
+import appUtils.Waiter;
 import browser.BrowserFactory;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -19,6 +20,7 @@ public class RandomCategoryPage {
     }
 
     private WebElement getLinkToMainPage() {
+        Waiter.waitForClickable(By.xpath(linkToMainPage));
         return driver.findElement(By.xpath(linkToMainPage));
     }
 

@@ -13,8 +13,9 @@ public class Props {
         try {
             properties.load(new FileReader(new File("src/main/resources/config.properties")));
         } catch (FileNotFoundException e) {
-
+            System.out.println("Config.property wasn't found");
         } catch (IOException e) {
+            System.out.println("Error in reading config.property");
         }
         return properties;
     }

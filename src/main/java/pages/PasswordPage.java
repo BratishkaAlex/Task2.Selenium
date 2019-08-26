@@ -1,6 +1,7 @@
 package pages;
 
 import appUtils.Props;
+import appUtils.Waiter;
 import browser.Browser;
 import browser.BrowserFactory;
 import org.openqa.selenium.By;
@@ -20,6 +21,7 @@ public class PasswordPage {
     }
 
     private WebElement getPasswordField() {
+        Waiter.waitForClickable(By.name(passwordFieldLoc));
         return driver.findElement(By.name(passwordFieldLoc));
     }
 

@@ -10,6 +10,10 @@ public class BrowserFactory {
 
     private static WebDriver driver = null;
 
+    private BrowserFactory() throws Exception {
+        throw new Exception("You can't create instance of this class");
+    }
+
     public static WebDriver getDriver() throws Exception {
         if (driver == null) {
             switch (Props.getProps().getProperty("browser")) {

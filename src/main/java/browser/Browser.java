@@ -2,7 +2,6 @@ package browser;
 
 import appUtils.Props;
 import org.openqa.selenium.WebDriver;
-
 import java.util.ArrayList;
 
 public class Browser {

@@ -1,5 +1,6 @@
 package pages;
 
+import appUtils.Waiter;
 import browser.Browser;
 import browser.BrowserFactory;
 import org.openqa.selenium.By;
@@ -20,6 +21,7 @@ public class UnauthorizedPage {
     }
 
     private WebElement getLoginButton() {
+        Waiter.waitForClickable(By.cssSelector(loginLoc));
         return driver.findElement(By.cssSelector(loginLoc));
     }
 

@@ -49,7 +49,7 @@ public class MarketTest {
         mainPage.clickRandomCategory(randomCategory);
 
         RandomCategoryPage randomCategoryPage = new RandomCategoryPage();
-        assertTrue(randomCategoryPage.getRandCatPageTitle().contains(randomCategory), "This is note the chosen random category page!");
+        assertTrue(randomCategoryPage.getRandCatPageTitle().contains(randomCategory), "This is not the chosen random category page!");
         randomCategoryPage.toMainPage();
 
         MainPage secondMainPage = new MainPage();
