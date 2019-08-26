@@ -15,7 +15,7 @@ public class BrowserFactory {
             switch (Props.getProps().getProperty("browser")) {
                 case "chrome":
                     WebDriverManager.chromedriver().setup();
-                    driver = new ChromeDriver(Browser.chromeMaximize());
+                    driver = new ChromeDriver();
                     break;
                 case "firefox":
                     WebDriverManager.firefoxdriver().setup();
@@ -26,5 +26,9 @@ public class BrowserFactory {
             }
         }
         return driver;
+    }
+
+    public static void closeDriver() {
+        driver.quit();
     }
 }

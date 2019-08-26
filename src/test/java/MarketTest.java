@@ -1,9 +1,11 @@
+import appUtils.Waiter;
 import browser.Browser;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 import pages.*;
 
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -16,9 +18,20 @@ public class MarketTest {
     private String titleFotMainPage = "Яндекс.Маркет — выбор и покупка товаров из проверенных интернет-магазинов";
     private String pathToCSVFile = "src/main/resources/allCategories.csv";
 
+    @BeforeTest
+    public void setUp() {
+        Browser.enterUrl();
+        Browser.maximize();
+        Waiter.implicitWait(30);
+    }
+
+    @AfterTest
+    public void closeBrowser() {
+        Browser.closeBrowser();
+    }
+
     @Test
     public void test() {
-        Browser.enterUrl();
         UnauthorizedPage startPage = new UnauthorizedPage();
         assertTrue(startPage.getMainPageTitle().equals(titleFotMainPage), "This is note the main page");
         startPage.logIn();
@@ -28,26 +41,28 @@ public class MarketTest {
 
         PasswordPage passwordPage = new PasswordPage();
         passwordPage.enterPassword();
+
         MainPage mainPage = new MainPage();
-        assertTrue(mainPage.isUserAuthorized(), "User can't authorized");
+        assertTrue(mainPage.isUserAuthorized(), "User couldn't authorized");
         ArrayList<String> popularCategories = mainPage.getListPopCategories();
         String randomCategory = popularCategories.get(getRandomInt(popularCategories.size()));
         mainPage.clickRandomCategory(randomCategory);
+
         RandomCategoryPage randomCategoryPage = new RandomCategoryPage();
-        assertTrue(randomCategoryPage.getRandCatPageTitle().contains(randomCategory), "This is note the chosen random category!");
+        assertTrue(randomCategoryPage.getRandCatPageTitle().contains(randomCategory), "This is note the chosen random category page!");
         randomCategoryPage.toMainPage();
+
         MainPage secondMainPage = new MainPage();
         secondMainPage.clickOnAllCategories();
         ArrayList<String> allCategories = secondMainPage.getListAllCategories();
-        System.out.println(allCategories.size());
         writeListInFile(allCategories);
         File checkFile = new File(pathToCSVFile);
-        assertTrue(checkFile.exists(), "File wasn't created");
-        assertTrue(isContainAllElementsInSecondList(popularCategories, allCategories), "All categories does not contain popular categories");
+        assertTrue(checkFile.exists(), "CSV file wasn't created");
+        assertTrue(allCategories.containsAll(popularCategories), "All categories does not contain popular categories");
         secondMainPage.logOut();
+
         UnauthorizedPage finalPage = new UnauthorizedPage();
         assertTrue(finalPage.isLogout(), "Didn't logout!");
-
     }
 
     private int getRandomInt(int value) {
@@ -55,28 +70,27 @@ public class MarketTest {
         return rand.nextInt(value);
     }
 
-    private boolean isContainAllElementsInSecondList(ArrayList list1, ArrayList list2) {
-        boolean isContain = true;
-        for (int i = 0; i < list1.size(); i++) {
-            if (!list2.contains(list1.get(i))) {
-                isContain = false;
-                break;
-            }
-        }
-        return isContain;
-    }
-
     private void writeListInFile(ArrayList<String> list) {
+        PrintWriter writer;
         try {
-            PrintWriter writer = new PrintWriter(pathToCSVFile, "windows-1251");
+            switch (System.getProperty("os.name")) {
+                case "Linux":
+                    writer = new PrintWriter(pathToCSVFile, "UTF-8");
+                    break;
+                case "Windows":
+                    writer = new PrintWriter(pathToCSVFile, "windows-1251");
+                    break;
+                default:
+                    throw new Exception("Unknown OS");
+            }
             for (String elem : list) {
                 writer.write(elem + System.getProperty("line.separator"));
             }
             writer.close();
         } catch (IOException e) {
             System.out.println("Error in writing file");
+        } catch (Exception e) {
+            System.out.println(e);
         }
-
     }
-
 }

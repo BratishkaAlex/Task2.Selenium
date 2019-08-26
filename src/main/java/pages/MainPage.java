@@ -12,7 +12,7 @@ import java.util.List;
 public class MainPage {
 
     private WebDriver driver;
-    private String popularCategoryLoc = "//div[@class='n-w-tabs__horizontal-tabs']//div[@class='n-w-tab n-w-tab_type_navigation-menu']//a[@class = 'link n-w-tab__control b-zone b-spy-events']";
+    private String popularCategoryLoc = "//div[@class='n-w-tabs__horizontal-tabs']//div[@class='n-w-tab n-w-tab_type_navigation-menu']";
     private String userIconLoc = ".n-passport-suggest-popup-opener .user__icon";
     private String logOutLoc = "//a[@class='link user user__logout i-bem user_js_inited']";
     private String allCategoriesButtonLoc = ".n-w-tab__control .n-w-tab__control-hamburger";

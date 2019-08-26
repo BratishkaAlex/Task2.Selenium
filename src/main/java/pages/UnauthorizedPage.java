@@ -1,12 +1,11 @@
 package pages;
 
-import appUtils.Props;
-import appUtils.Waiter;
 import browser.Browser;
 import browser.BrowserFactory;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 
 public class UnauthorizedPage {
     private WebDriver driver;
@@ -25,7 +24,8 @@ public class UnauthorizedPage {
     }
 
     public void logIn() {
-        getLoginButton().click();
+        Actions btnClick = new Actions(driver);
+        btnClick.click(getLoginButton()).perform();
         Browser.changeTab(1);
     }
 

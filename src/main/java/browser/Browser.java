@@ -1,18 +1,19 @@
 package browser;
 
 import appUtils.Props;
-import appUtils.Waiter;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
 
 import java.util.ArrayList;
 
 public class Browser {
 
-    public static ChromeOptions chromeMaximize() {
-        ChromeOptions chromeOptions = new ChromeOptions();
-        chromeOptions.addArguments("start-maximized");
-        return chromeOptions;
+    public static void maximize() {
+        try {
+            WebDriver driver = BrowserFactory.getDriver();
+            driver.manage().window().maximize();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
     }
 
     public static void changeTab(int expectedNumber) {
@@ -30,6 +31,9 @@ public class Browser {
         } catch (Exception e) {
             System.out.println(e);
         }
-        Waiter.implicitWait(30);
+    }
+
+    public static void closeBrowser() {
+        BrowserFactory.closeDriver();
     }
 }
