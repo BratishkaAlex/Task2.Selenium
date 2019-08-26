@@ -77,7 +77,7 @@ public class MarketTest {
                 case "Linux":
                     writer = new PrintWriter(pathToCSVFile, "UTF-8");
                     break;
-                case "Windows":
+                case "Windows 10":
                     writer = new PrintWriter(pathToCSVFile, "windows-1251");
                     break;
                 default:
