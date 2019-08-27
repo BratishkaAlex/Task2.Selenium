@@ -1,8 +1,7 @@
 package pages;
 
-import appUtils.Props;
 import appUtils.Waiter;
-import browser.BrowserFactory;
+import browser.Browser;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -10,23 +9,19 @@ import org.openqa.selenium.WebElement;
 public class LoginPage {
 
     private WebDriver driver;
-    private String loginFieldLoc = "login";
+    private By loginFieldLoc = By.name("login");
 
     public LoginPage() {
-        try {
-            driver = BrowserFactory.getDriver();
-        } catch (Exception e) {
-            System.out.println(e);
-        }
+        driver = Browser.getDriver();
     }
 
     private WebElement getLoginField() {
-        Waiter.waitForClickable(By.name(loginFieldLoc));
-        return driver.findElement(By.name(loginFieldLoc));
+        Waiter.waitForClickable(loginFieldLoc);
+        return driver.findElement(loginFieldLoc);
     }
 
-    public void enterLogin() {
-        getLoginField().sendKeys(Props.getProps().getProperty("login"));
+    public void enterLogin(String login) {
+        getLoginField().sendKeys(login);
         getLoginField().submit();
     }
 

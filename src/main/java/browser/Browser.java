@@ -1,38 +1,37 @@
 package browser;
 
-import appUtils.Props;
 import org.openqa.selenium.WebDriver;
+
 import java.util.ArrayList;
 
 public class Browser {
 
+    private static WebDriver driver;
+
+    private Browser() {
+    }
+
+    public static void setUp(String browser) {
+        driver = BrowserFactory.getDriver(browser);
+    }
+
     public static void maximize() {
-        try {
-            WebDriver driver = BrowserFactory.getDriver();
-            driver.manage().window().maximize();
-        } catch (Exception e) {
-            System.out.println(e);
-        }
+        driver.manage().window().maximize();
     }
 
     public static void changeTab(int expectedNumber) {
-        try {
-            WebDriver driver = BrowserFactory.getDriver();
-            driver.switchTo().window(new ArrayList<>(driver.getWindowHandles()).get(expectedNumber));
-        } catch (Exception e) {
-            System.out.println(e);
-        }
+        driver.switchTo().window(new ArrayList<>(driver.getWindowHandles()).get(expectedNumber));
     }
 
-    public static void enterUrl() {
-        try {
-            BrowserFactory.getDriver().get(Props.getProps().getProperty("url"));
-        } catch (Exception e) {
-            System.out.println(e);
-        }
+    public static void enterUrl(String url) {
+        driver.get(url);
     }
 
     public static void closeBrowser() {
-        BrowserFactory.closeDriver();
+        driver.quit();
+    }
+
+    public static WebDriver getDriver() {
+        return driver;
     }
 }

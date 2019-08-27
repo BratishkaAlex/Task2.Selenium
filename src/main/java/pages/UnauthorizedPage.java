@@ -2,7 +2,6 @@ package pages;
 
 import appUtils.Waiter;
 import browser.Browser;
-import browser.BrowserFactory;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -10,19 +9,16 @@ import org.openqa.selenium.interactions.Actions;
 
 public class UnauthorizedPage {
     private WebDriver driver;
-    private String loginLoc = ".n-passport-suggest-popup-opener .button2";
+    private By loginLoc = By.cssSelector(".n-passport-suggest-popup-opener .button2");
+    private By bannerLoc = By.xpath("//div[contains(@data-zone-name, 'Banner')]");
 
     public UnauthorizedPage() {
-        try {
-            driver = BrowserFactory.getDriver();
-        } catch (Exception e) {
-            System.out.println(e);
-        }
+        driver = Browser.getDriver();
     }
 
     private WebElement getLoginButton() {
-        Waiter.waitForClickable(By.cssSelector(loginLoc));
-        return driver.findElement(By.cssSelector(loginLoc));
+        Waiter.waitForClickable(loginLoc);
+        return driver.findElement(loginLoc);
     }
 
     public void logIn() {
@@ -31,11 +27,16 @@ public class UnauthorizedPage {
         Browser.changeTab(1);
     }
 
-    public String getMainPageTitle() {
-        return driver.getTitle();
-    }
-
     public boolean isLogout() {
         return getLoginButton().isDisplayed();
     }
+
+    public boolean isMainPage() {
+        return getBanner().isDisplayed();
+    }
+
+    public WebElement getBanner() {
+        return driver.findElement(bannerLoc);
+    }
+
 }

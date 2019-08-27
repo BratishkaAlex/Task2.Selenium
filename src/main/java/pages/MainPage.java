@@ -1,34 +1,32 @@
 package pages;
 
 import appUtils.Waiter;
-import browser.BrowserFactory;
+import browser.Browser;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 public class MainPage {
 
     private WebDriver driver;
-    private String popularCategoryLoc = "//div[@class='n-w-tabs__horizontal-tabs']//div[@class='n-w-tab n-w-tab_type_navigation-menu']";
-    private String userIconLoc = ".n-passport-suggest-popup-opener .user__icon";
-    private String logOutLoc = "//a[@class='link user user__logout i-bem user_js_inited']";
-    private String allCategoriesButtonLoc = ".n-w-tab__control .n-w-tab__control-hamburger";
-    private String allCategoriesLoc = "//div[@class='n-w-tabs__vertical-tabs']//a";
+    private By popularCategoryLoc = By.xpath("//div[@class='n-w-tabs__horizontal-tabs']//div[@class='n-w-tab n-w-tab_type_navigation-menu']");
+    private By userIconLoc = By.cssSelector(".n-passport-suggest-popup-opener .user__icon");
+    private By logOutLoc = By.xpath("//a[contains(@class,'user__logout')]");
+    private By allCategoriesButtonLoc = By.cssSelector(".n-w-tab__control .n-w-tab__control-hamburger");
+    private By allCategoriesLoc = By.xpath("//div[@class='n-w-tabs__vertical-tabs']//a");
 
 
     public MainPage() {
-        try {
-            driver = BrowserFactory.getDriver();
-        } catch (Exception e) {
-            System.out.println(e);
-        }
+        driver = Browser.getDriver();
     }
 
     public ArrayList<String> getListPopCategories() {
         List<WebElement> categories = getWebElementPopCategories();
-        ArrayList<String> popular = new ArrayList();
+        ArrayList<String> popular = new ArrayList<>();
         for (WebElement elem : categories) {
             popular.add(elem.getText());
         }
@@ -36,8 +34,8 @@ public class MainPage {
     }
 
     private List<WebElement> getWebElementPopCategories() {
-        Waiter.waitForClickable(By.xpath(popularCategoryLoc));
-        List<WebElement> listCategories = driver.findElements(By.xpath(popularCategoryLoc));
+        Waiter.waitForClickable(popularCategoryLoc);
+        List<WebElement> listCategories = driver.findElements(popularCategoryLoc);
         for (int i = 0; i < listCategories.size(); i++) {
             if (listCategories.get(i).getText().equals("")) {
                 listCategories.remove(i);
@@ -48,12 +46,12 @@ public class MainPage {
     }
 
     private WebElement getUserIcon() {
-        Waiter.waitForClickable(By.cssSelector(userIconLoc));
-        return driver.findElement(By.cssSelector(userIconLoc));
+        Waiter.waitForClickable(userIconLoc);
+        return driver.findElement(userIconLoc);
     }
 
     private WebElement getLogOutButton() {
-        return driver.findElement(By.xpath(logOutLoc));
+        return driver.findElement(logOutLoc);
     }
 
     public void logOut() {
@@ -73,7 +71,7 @@ public class MainPage {
                 return elem;
             }
         }
-        return null;
+        throw new NoSuchElementException("There isn't random chosen category in popular categories");
     }
 
     public void clickRandomCategory(String text) {
@@ -81,8 +79,8 @@ public class MainPage {
     }
 
     private WebElement getAllCategoriesButton() {
-        Waiter.waitForClickable(By.cssSelector(allCategoriesButtonLoc));
-        return driver.findElement(By.cssSelector(allCategoriesButtonLoc));
+        Waiter.waitForClickable(allCategoriesButtonLoc);
+        return driver.findElement(allCategoriesButtonLoc);
     }
 
     public void clickOnAllCategories() {
@@ -90,13 +88,12 @@ public class MainPage {
     }
 
     private List<WebElement> getWebElementAllCategories() {
-        List<WebElement> listCategories = driver.findElements(By.xpath(allCategoriesLoc));
-        return listCategories;
+        return driver.findElements(allCategoriesLoc);
     }
 
     public ArrayList<String> getListAllCategories() {
         List<WebElement> categories = getWebElementAllCategories();
-        ArrayList<String> all = new ArrayList();
+        ArrayList<String> all = new ArrayList<>();
         for (WebElement elem : categories) {
             all.add(elem.getText());
         }

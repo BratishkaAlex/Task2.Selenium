@@ -1,32 +1,26 @@
 package pages;
 
-import appUtils.Props;
 import appUtils.Waiter;
 import browser.Browser;
-import browser.BrowserFactory;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 public class PasswordPage {
     private WebDriver driver;
-    private String passwordFieldLoc = "passwd";
+    private By passwordFieldLoc = By.name("passwd");
 
     public PasswordPage() {
-        try {
-            driver = BrowserFactory.getDriver();
-        } catch (Exception e) {
-            System.out.println(e);
-        }
+        driver = Browser.getDriver();
     }
 
     private WebElement getPasswordField() {
-        Waiter.waitForClickable(By.name(passwordFieldLoc));
-        return driver.findElement(By.name(passwordFieldLoc));
+        Waiter.waitForClickable(passwordFieldLoc);
+        return driver.findElement(passwordFieldLoc);
     }
 
-    public void enterPassword() {
-        getPasswordField().sendKeys(Props.getProps().getProperty("password"));
+    public void enterPassword(String password) {
+        getPasswordField().sendKeys(password);
         getPasswordField().submit();
         Browser.changeTab(0);
     }

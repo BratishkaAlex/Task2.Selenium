@@ -8,7 +8,7 @@ import java.util.Properties;
 
 public class Props {
 
-    public static Properties getProps() {
+    public static String getProperty(String property) {
         Properties properties = new Properties();
         try {
             properties.load(new FileReader(new File("src/main/resources/config.properties")));
@@ -17,6 +17,6 @@ public class Props {
         } catch (IOException e) {
             System.out.println("Error in reading config.property");
         }
-        return properties;
+        return properties.getProperty(property);
     }
 }
