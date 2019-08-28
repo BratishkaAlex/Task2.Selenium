@@ -28,7 +28,7 @@ public class MainPage {
         List<WebElement> categories = getWebElementPopCategories();
         ArrayList<String> popular = new ArrayList<>();
         for (WebElement elem : categories) {
-            popular.add(elem.getText());
+            popular.add(elem.getAttribute("textContent"));
         }
         return popular;
     }
